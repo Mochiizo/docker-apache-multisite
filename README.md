@@ -79,7 +79,11 @@ docker-apache-multisite/
 │   └── vsftpd.conf               # Configuration de FTP
 ├── .env.example                   # Exemple de fichier d'environnement
 ├── .gitignore                     # Fichiers à ignorer par Git
-└── docker-compose.yml             # Fichier de configuration Docker Compose
+├── docker-compose.yml             # Fichier de configuration Docker Compose
+├── db-data/         # (📁 généré automatiquement - BDD MariaDB)
+├── wp-data/         # (📁 généré automatiquement - WordPress)
+├── joomla-data/     # (📁 généré automatiquement - Joomla)
+└── backups/         # (📁 généré automatiquement - sauvegardes .tar.gz)
 ```
 
 ### Explication des fichiers et répertoires principaux
