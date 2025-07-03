@@ -41,7 +41,7 @@ Ce projet permet de déployer plusieurs sites web à l'aide de Docker et d'Apach
 
 4. Construisez et démarrez les conteneurs :
    ```bash
-   docker-compose up -d
+   docker-compose up --build -d
    ```
 
 ## Utilisation
