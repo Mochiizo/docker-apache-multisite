@@ -1,6 +1,7 @@
 # ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white) ![Apache](https://img.shields.io/badge/Apache-DB4437?style=flat&logo=apache&logoColor=white)
 
 # docker-apache-multisite
+Je précise que c'était pour un TP à l'origine.
 
 Ce projet permet de déployer plusieurs sites web à l'aide de Docker et d'Apache. Il est conçu pour faciliter la gestion de plusieurs sites dans un environnement isolé, tout en offrant une configuration simple et efficace.
 
@@ -53,6 +54,31 @@ Pour accéder aux différents sites, ouvrez votre navigateur et allez à l'adres
 - Site C : `http://localhost/site/sitec`
 - Site D : `http://localhost/site/sited`
 
+Pour éviter de saisir à chaque fois les chemins longs avec `localhost/site/sitex`, vous pouvez configurer des noms de domaine locaux en modifiant votre fichier `hosts`.
+Cette opération nécessite les droits administrateur.
+
+ Modifiez votre fichier `hosts` pour mapper les noms de domaine locaux :
+   - Sous Linux/macOS : `/etc/hosts`
+   - Sous Windows     : `C:\Windows\System32\drivers\etc\hosts`
+
+   À ajouter :
+   ```
+   127.0.0.1 siteA.fr
+   127.0.0.1 siteB.fr
+   127.0.0.1 siteC.fr
+   127.0.0.1 siteD.fr
+   127.0.0.1 sitewp.fr
+   127.0.0.1 sitej.fr
+   ```
+
+Ensuite, vous pourrez accéder aux sites directement avec ces URLs simplifiées :
+- Site A : `sitea.fr:8080`
+- Site B : `siteb.fr:8080`
+- Site C : `sited.fr:8080`
+- Site D : `sited.fr:8080`
+- Site wp : `sitewp.fr:8080`
+- Site J : `sitej.fr:8080`
+
 ## Structure du projet
 
 Voici un aperçu de la structure du projet :
@@ -95,12 +121,4 @@ docker-apache-multisite/
 
 ## Contribuer
 
-Les contributions sont les bienvenues ! Pour contribuer, veuillez suivre ces étapes :
-
-1. Forkez le projet.
-2. Créez votre branche (`git checkout -b feature/your-feature`).
-3. Commitez vos modifications (`git commit -m 'Ajout d'une nouvelle fonctionnalité'`).
-4. Poussez vers la branche (`git push origin feature/your-feature`).
-5. Ouvrez une Pull Request. 
-
-Merci de votre intérêt pour ce projet !
+Les contributions sont les bienvenues !
