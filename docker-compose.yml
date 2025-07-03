@@ -1,0 +1,88 @@
+services:
+  web:
+    build: ./web
+    container_name: apache-web
+    ports:
+      - "8080:80"
+      - "2222:22"
+    volumes:
+      - ./web/site:/var/www/html
+    depends_on:
+      - db
+    restart: always
+
+  ftp:
+    image: fauria/vsftpd
+    container_name: ftp
+    ports:
+      - "21:21"
+      - "21000-21010:21000-21010"
+    volumes:
+      - ./web/site:/srv/ftp
+    environment:
+      - FTP_USER=ftpuser
+      - FTP_PASS=ftp123
+      - PASV_ENABLE=YES
+      - PASV_MIN_PORT=21000
+      - PASV_MAX_PORT=21010
+      - PASV_ADDRESS=host.docker.internal
+      - LOCAL_UMASK=022
+    restart: always
+
+  db:
+    image: mariadb:10.5
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./db-data:/var/lib/mysql
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      PMA_USER: ${PMA_USER}
+      PMA_PASSWORD: ${PMA_PASSWORD}
+# Comme on utilise le même port que apache avec localhost:8080/pma
+#    ports:
+#      - "8081:80"
+    depends_on:
+      - db
+    restart: always
+
+  wordpress:
+    image: wordpress:6.5-apache
+    container_name: sitewp
+    ports:
+      - "8082:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+    volumes:
+      - ./wp-data:/var/www/html
+    depends_on:
+      - db
+
+  joomla:
+    image: joomla
+    container_name: sitej
+    ports:
+      - "8083:80"
+    restart: always
+    environment:
+      JOOMLA_DB_HOST: ${JOOMLA_DB_HOST}
+      JOOMLA_DB_USER: ${JOOMLA_DB_USER}
+      JOOMLA_DB_PASSWORD: ${JOOMLA_DB_PASSWORD}
+      JOOMLA_DB_NAME: ${JOOMLA_DB_NAME}
+    volumes:
+      - ./joomla-data:/var/www/html
+    depends_on:
+      - db

@@ -1,0 +1,19 @@
+# Fichiers d'environnement
+.env
+
+# Dossiers de données (bases de données, CMS)
+db-data/
+joomla-data/
+wp-data/
+
+# Fichiers temporaires et logs
+*.log
+*.tmp
+
+# Fichiers générés par Docker
+**/.docker/
+**/docker-compose.override.yml
+
+# Fichiers système
+.DS_Store
+Thumbs.db
